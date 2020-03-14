@@ -1,3 +1,5 @@
+https://github.com/MrToph/react-native-countdown-circle/blob/master/src/index.js
+
 import React from 'react'
 import {
   Easing,
@@ -6,6 +8,7 @@ import {
   Text,
   View,
   ViewPropTypes,
+  Keyboard,
 } from 'react-native'
 import PropTypes from 'prop-types'
 
@@ -19,7 +22,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#e3e3e3',
+    backgroundColor: '#fff',
   },
   innerCircle: {
     overflow: 'hidden',
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     left: 0,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
-    backgroundColor: '#f00',
+    backgroundColor: '#fff',
   },
 })
 
@@ -100,9 +103,9 @@ export default class PercentageCircle extends React.PureComponent {
   };
 
   static defaultProps = {
-    color: '#f00',
-    shadowColor: '#999',
-    bgColor: '#e9e9ef',
+    color: '#fff',
+    shadowColor: '#fff',
+    bgColor: '#fff',
     borderWidth: 2,
     seconds: 10,
     children: null,
@@ -151,11 +154,11 @@ export default class PercentageCircle extends React.PureComponent {
     )
   };
 
-  restartAnimation = () => {
+  restartAnimation = (startValue) => {
     this.state.circleProgress.stopAnimation()
     Animated.timing(this.state.circleProgress, {
       toValue: 100,
-      duration: 1000,
+      duration: this.props.seconds * 1000,
       easing: Easing.linear,
     }).start(this.onCircleAnimated)
   };
@@ -172,6 +175,7 @@ export default class PercentageCircle extends React.PureComponent {
             height: radius * 2,
           },
         ]}
+        onPress={() => Keyboard.dismiss()}
       >
         <Animated.View
           style={[
@@ -193,7 +197,7 @@ export default class PercentageCircle extends React.PureComponent {
     )
   }
 
-  renderInnerCircle() {
+  renderInnerCircle(children) {
     const radiusMinusBorder = this.props.radius - this.props.borderWidth
     return (
       <View
@@ -207,10 +211,9 @@ export default class PercentageCircle extends React.PureComponent {
             ...this.props.containerStyle,
           },
         ]}
+        onPress={() => Keyboard.dismiss()}
       >
-        <Text style={this.props.textStyle}>
-          {this.state.text}
-        </Text>
+        { children }
       </View>
     )
   }
@@ -220,6 +223,28 @@ export default class PercentageCircle extends React.PureComponent {
       interpolationValuesHalfCircle1,
       interpolationValuesHalfCircle2,
     } = this.state
+    const {
+      children,
+      pauseTimer,
+      stopTimer,
+    } = this.props
+
+    if (pauseTimer) {
+      console.log(229, this.state.circleProgress);
+      this.state.circleProgress.stopAnimation()
+      this.setState({ pauseTimer: true, circlePauseProgress: this.state.circleProgress });
+    }
+
+    if (this.state.pauseTimer && !pauseTimer) {
+      this.setState({ circleProgress: new Animated.Value(this.state.circlePauseProgress) });
+      this.restartAnimation();
+      this.setState({ pauseTimer: false });
+    }
+
+    if (stopTimer) {
+      this.state.circleProgress.stopAnimation()
+    }
+
     return (
       <View
         style={[
@@ -231,10 +256,11 @@ export default class PercentageCircle extends React.PureComponent {
             backgroundColor: this.props.color,
           },
         ]}
+        onPress={() => Keyboard.dismiss()}
       >
         {this.renderHalfCircle(interpolationValuesHalfCircle1)}
         {this.renderHalfCircle(interpolationValuesHalfCircle2)}
-        {this.renderInnerCircle()}
+        {this.renderInnerCircle(children)}
       </View>
     )
   }
