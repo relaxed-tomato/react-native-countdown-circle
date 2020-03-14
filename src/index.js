@@ -1,4 +1,4 @@
-https://github.com/MrToph/react-native-countdown-circle/blob/master/src/index.js
+// forked from https://github.com/MrToph/react-native-countdown-circle/blob/master/src/index.js
 
 import React from 'react'
 import {
