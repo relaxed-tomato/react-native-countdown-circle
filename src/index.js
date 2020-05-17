@@ -123,7 +123,7 @@ export default class PercentageCircle extends React.PureComponent {
     this.restartAnimation()
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (
       this.props.seconds !== nextProps.seconds
     ) {
