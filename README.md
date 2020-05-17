@@ -48,9 +48,9 @@ render() {
 | seconds | The seconds to count down from | Number | ✓ |  |
 | radius | The radius in `px` of the component (including border) | Number | ✓ |  |
 | borderWidth | The border width in `px` | Number | ✓ |  |
-| color | The border color | String | ✓ | ![#f00](https://placehold.it/15/f00/000000?text=+) `'#f00'` |
-| pauseTimer | A boolean to pause the animation | bool |  | ` true | false` |
-| stopTimer | A boolean to stop the timer | bool |  | ` true | false` |
+| color | The border color | String | ✓ |  |
+| pauseTimer | A boolean to pause the animation | bool |  | ` false` |
+| stopTimer | A boolean to stop the timer | bool |  | ` false` |
 | shadowColor | The background color of the border | String |  | ![#999](https://placehold.it/15/999/000000?text=+) `'#999'` |
 | bgColor | The inner background color of the component  | String |  | ![#e9e9ef](https://placehold.it/15/e9e9ef/000000?text=+) `'#e9e9ef'` |
 | containerStyle | The custom styling which will be applied to the container of the Text component | Style |  | `null` |
