@@ -49,12 +49,15 @@ render() {
 | radius | The radius in `px` of the component (including border) | Number | ✓ |  |
 | borderWidth | The border width in `px` | Number | ✓ |  |
 | color | The border color | String | ✓ | ![#f00](https://placehold.it/15/f00/000000?text=+) `'#f00'` |
+| pauseTimer | A boolean to pause the animation | bool |  | ` true | false` |
+| stopTimer | A boolean to stop the timer | bool |  | ` true | false` |
 | shadowColor | The background color of the border | String |  | ![#999](https://placehold.it/15/999/000000?text=+) `'#999'` |
 | bgColor | The inner background color of the component  | String |  | ![#e9e9ef](https://placehold.it/15/e9e9ef/000000?text=+) `'#e9e9ef'` |
 | containerStyle | The custom styling which will be applied to the container of the Text component | Style |  | `null` |
 | textStyle | The custom styling which will be applied to the Text component | Style |  | `null` |
 | updateText | A function used to display a different text inside this component. Is called after every second, with the number of _elapsed_ seconds, and the _total_ seconds | func | | ` (elapsedSecs, totalSecs) => (totalSecs - elapsedSecs).toString()` |
 | onTimeElapsed | A function being called when the countdown is over | func |  | ` () => null` |
+
 
 > Note: Setting the `seconds` prop to a different value restarts the timer with that new value.
 
