@@ -85,6 +85,7 @@ function getInitialState(props) {
       circleProgress,
       props,
     ),
+    pauseTimer: false,
   }
 }
 
@@ -229,15 +230,14 @@ export default class PercentageCircle extends React.PureComponent {
       stopTimer,
     } = this.props
 
-    if (pauseTimer) {
-      this.state.circleProgress.stopAnimation()
-      this.setState({ pauseTimer: true, circlePauseProgress: this.state.circleProgress });
+    if (!this.state.pauseTimer && pauseTimer) {
+      this.state.circleProgress.stopAnimation();
+      this.setState({ pauseTimer, circlePauseProgress: this.state.circleProgress });
     }
 
     if (this.state.pauseTimer && !pauseTimer) {
-      this.setState({ circleProgress: new Animated.Value(this.state.circlePauseProgress) });
+      this.setState({ pauseTimer, circleProgress: this.state.circlePauseProgress });
       this.restartAnimation();
-      this.setState({ pauseTimer: false });
     }
 
     if (stopTimer) {
