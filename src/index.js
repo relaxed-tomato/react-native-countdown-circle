@@ -236,17 +236,8 @@ export default class PercentageCircle extends React.PureComponent {
     } = this.state
     const {
       children,
+      stopTimer,
     } = this.props
-
-    if (!this.state.pauseTimer && pauseTimer) {
-      this.state.circleProgress.stopAnimation();
-      this.setState({ pauseTimer, circlePauseProgress: this.state.circleProgress });
-    }
-
-    if (this.state.pauseTimer && !pauseTimer) {
-      this.setState({ pauseTimer, circleProgress: this.state.circlePauseProgress });
-      this.restartAnimation();
-    }
 
     if (stopTimer) {
       this.state.circleProgress.stopAnimation()
